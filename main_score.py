@@ -1,8 +1,6 @@
-# main_score.py
-
 from flask import Flask, jsonify
 import os
-from utils import SCORES_FILE_NAME, BAD_RETURN_CODE
+from utils import SCORES_FILE_NAME
 
 app = Flask(__name__)
 
