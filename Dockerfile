@@ -1,14 +1,8 @@
-FROM python:alpine
 
+FROM python:3.9-slim
 WORKDIR /app
-
-COPY . /app
-
-RUN pip install -r requirements
-
+COPY main_score.py /app
+RUN pip install flask
 COPY Scores.txt /Scores.txt
-
 EXPOSE 5000
-
-CMD ["python", "app.py"]
-
+CMD ["python", "main_score.py"]
