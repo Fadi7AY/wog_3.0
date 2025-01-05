@@ -3,6 +3,8 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "fadi7ay/wog-app:latest"
+        CONTAINER_NAME = "flask-app-container"
+        PYTHON_PATH = "C:\\Users\\LENOVO\\AppData\\Local\\Programs\\Python\\Python313\\python.exe"
     }
 
     stages {
@@ -22,8 +24,25 @@ pipeline {
 
         stage('Run') {
             steps {
+                echo 'Stopping and removing any existing container...'
+                sh '''
+                docker stop ${CONTAINER_NAME} || true
+                docker rm ${CONTAINER_NAME} || true
+                '''
                 echo 'Running the Dockerized application...'
-                sh 'docker run -d --name flask-app-container -p 5000:5000 -v $(pwd)/Scores.txt:/Scores.txt ${DOCKER_IMAGE}'
+                sh '''
+                docker run -d --name ${CONTAINER_NAME} -p 5000:5000 -v $(pwd)/Scores.txt:/Scores.txt ${DOCKER_IMAGE}
+                '''
+            }
+        }
+
+        stage('Setup Test Environment') {
+            steps {
+                echo 'Installing Python dependencies...'
+                sh '''
+                python3 --version || exit 1
+                pip3 install -r requirements
+                '''
             }
         }
 
@@ -41,9 +60,12 @@ pipeline {
 
         stage('Finalize') {
             steps {
-                echo 'Finalizing the pipeline...'
-                sh 'docker stop flask-app-container || true'
-                sh 'docker rm flask-app-container || true'
+                echo 'Stopping and removing the container...'
+                sh '''
+                docker stop ${CONTAINER_NAME} || true
+                docker rm ${CONTAINER_NAME} || true
+                '''
+                echo 'Pushing the Docker image to Docker Hub...'
                 sh 'docker push ${DOCKER_IMAGE}'
             }
         }
@@ -52,8 +74,10 @@ pipeline {
     post {
         always {
             echo 'Cleaning up resources...'
-            sh 'docker stop flask-app-container || true'
-            sh 'docker rm flask-app-container || true'
+            sh '''
+            docker stop ${CONTAINER_NAME} || true
+            docker rm ${CONTAINER_NAME} || true
+            '''
         }
     }
 }
