@@ -10,7 +10,14 @@ def score_server():
         if os.path.exists(SCORES_FILE_NAME):
             with open(SCORES_FILE_NAME, 'r') as file:
                 score = file.read()
-            return f"<html><body><h1>The current score is: {score}</h1></body></html>"
+            return f"""
+            <html>
+                <body>
+                    <h1>The current score is:</h1>
+                    <div id="score" style="font-size: 32px;">{score}</div>
+                </body>
+            </html>
+            """
         else:
             return f"<html><body><h1>Error: Scores file not found.</h1></body></html>", 404
     except Exception as e:

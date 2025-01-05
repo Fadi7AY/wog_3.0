@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  wog:
+    build: .
+    ports:
+      - "8777:8777"
+    volumes:
+      - ./Scores.txt:/Scores.txt
+
