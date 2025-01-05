@@ -8,7 +8,7 @@ RUN pip install -r requirements
 
 COPY Scores.txt /Scores.txt
 
-EXPOSE 8777
+EXPOSE 5000
 
 CMD ["python", "app.py"]
 
