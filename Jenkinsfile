@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "fadi7ay/wog-app:latest"
         CONTAINER_NAME = "flask-app-container"
-        PYTHON_PATH = "C:\Users\LENOVO\AppData\Local\Microsoft\WindowsApps\python.exe"
+        PYTHON_PATH = "C:\\Users\\LENOVO\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" // Adjust to your Python path
     }
 
     stages {
@@ -40,8 +40,8 @@ pipeline {
             steps {
                 echo 'Installing Python dependencies...'
                 sh '''
-                python3 --version || exit 1
-                pip3 install -r requirements
+                ${PYTHON_PATH} --version || exit 1
+                ${PYTHON_PATH} -m pip install -r requirements
                 '''
             }
         }
@@ -50,7 +50,7 @@ pipeline {
             steps {
                 echo 'Running e2e tests with Selenium...'
                 script {
-                    def result = sh(script: 'python3 e2e.py', returnStatus: true)
+                    def result = sh(script: '${PYTHON_PATH} e2e.py', returnStatus: true)
                     if (result != 0) {
                         error 'Tests failed'
                     }
