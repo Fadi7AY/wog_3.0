@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "fadi7ay/wog-app:latest"
         CONTAINER_NAME = "flask-app-container"
-        PYTHON_PATH = "C:\\Users\\LENOVO\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" // Adjust to your Python path
+        PYTHON_PATH = "C:\\Users\\LENOVO\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" 
     }
 
     stages {

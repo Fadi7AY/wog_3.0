@@ -2,7 +2,7 @@ from flask import Flask, jsonify
 import os
 #from utils import SCORES_FILE_NAME
 
-SCORES_FILE_NAME = "/Scores.txt"
+SCORES_FILE_NAME = "Scores.txt"
 app = Flask(__name__)
 
 @app.route('/score', methods=['GET'])
