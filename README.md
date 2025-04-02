@@ -87,6 +87,71 @@ Defines the full CI/CD pipeline with the following stages:
 docker run -p 5000:5000 fadi7ay/wog-app:latest
 ```
 
++----------------------+
+|  Developer Pushes   |
+|  to GitHub Repo     |
++---------+------------+
+          |
+          v
++----------------------+
+|     Jenkins Starts   |
+|      the Pipeline    |
++---------+------------+
+          |
+          v
++----------------------+
+|     Checkout Code    |
+|   (GitHub SCM Clone) |
++---------+------------+
+          |
+          v
++--------------------------+
+|    Build Docker Image    |
+| docker build -t IMAGE .  |
++---------+----------------+
+          |
+          v
++-------------------------------+
+|     Run Container from Image |
+| docker run -v Scores.txt ... |
++---------+---------------------+
+          |
+          v
++--------------------------------------+
+|  Setup Python Env & Install Modules  |
+| python -m pip install -r requirements|
++--------------+-----------------------+
+               |
+               v
++------------------------------+
+| Run Selenium e2e.py Tests    |
+| Validate /score endpoint     |
++--------------+---------------+
+               |
+    +----------+---------------------------+
+    |                                      |
+    v                                      v
++--------+                        +--------------------+
+| Passed |                        |      Failed        |
++--------+                        +--------------------+
+    |                                      |
+    v                                      v
++--------------------+      +------------------------------+
+| Stop & Remove      |      | Stop & Remove Container      |
+| Container          |      | Mark Build as FAILED         |
++--------------------+      +------------------------------+
+          |
+          v
++-----------------------------+
+| Push Docker Image to Hub   |
+| docker push fadi7ay/wog... |
++-----------------------------+
+             |
+             v
++----------------------------+
+|       End of Pipeline      |
++----------------------------+
+
 ## How to Run Locally
 ```bash
 git clone https://github.com/Fadi7AY/wog_3.0.git
