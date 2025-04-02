@@ -50,8 +50,9 @@ pipeline {
             steps {
                 echo 'Running e2e tests with Selenium...'
                 script {
-                    def result = sh(script: '${PYTHON_PATH} e2e.py', returnStatus: true)
+                    def result = sh(script: "${PYTHON_PATH} e2e.py", returnStatus: true)
                     if (result != 0) {
+                        currentBuild.result = 'FAILURE'
                         error 'Tests failed'
                     }
                 }
@@ -59,6 +60,9 @@ pipeline {
         }
 
         stage('Finalize') {
+            when {
+                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
             steps {
                 echo 'Stopping and removing the container...'
                 sh '''
