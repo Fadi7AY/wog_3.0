@@ -1,7 +1,7 @@
-# World of Games - Level 4
+# World of Games
 
 ## Overview
-This project is part of the World of Games assignment, Level 4. It features a Flask-based web service that reads a score from a file and serves it over an HTTP endpoint. 
+This project is part of the World of Games assignment. It features a Flask-based web service that reads a score from a file and serves it over an HTTP endpoint. 
 The project is fully containerized using Docker and Docker Compose, and utilizes a Jenkins CI/CD pipeline to automate building, testing, and deploying the service.
 
 ## Project Structure
