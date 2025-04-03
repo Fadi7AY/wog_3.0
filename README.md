@@ -187,7 +187,7 @@ docker run -p 5000:5000 fadi7ay/wog-app:latest
          v
 +--------+--------+
 |   Jenkins CI    |
-|  (Polls Repo)   |
+|  (Pulls Repo)   |
 +--------+--------+
          |
          v
