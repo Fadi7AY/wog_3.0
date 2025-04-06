@@ -12,7 +12,9 @@ def test_scores_service(url):
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
-        service = Service("C:/Users/LENOVO/Desktop/CHMD/chromedriver-win64/chromedriver.exe")
+        #service = Service("C:/Users/LENOVO/Desktop/CHMD/chromedriver-win64/chromedriver.exe")
+        #service = Service("C:/Users/LENOVO/OneDrive/Desktop/Crm_Driv/chromedriver-win64/chromedriver.exe")
+        service = Service("C:/Users/LENOVO/OneDrive/Desktop/NCRM/chromedriver-win64/chromedriver.exe") #latest chrome version
         driver = webdriver.Chrome(service=service, options=options)
 
 
@@ -33,6 +35,7 @@ def test_scores_service(url):
 def main_function():
 
     #url="localhost:5000/score"
+    url = "http://127.0.0.1:5000/score"
     url = "http://127.0.0.1:5000/score"
     result = test_scores_service(url)
     if result:
