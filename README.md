@@ -1,5 +1,17 @@
 # World of Games
 
+## At a glance
+
+```mermaid
+flowchart LR
+    File["Scores.txt"] --> Flask["Flask · score page"]
+    Browser["Browser"] --> Flask
+    Jenkins["Jenkins pipeline"] --> Docker["Build and run container"]
+    Docker --> Flask
+    Test["Selenium · e2e.py"] --> Flask
+```
+
+
 ## Overview
 This project is part of the World of Games assignment. It features a Flask-based web service that reads a score from a file and serves it over an HTTP endpoint. 
 The project is fully containerized using Docker and Docker Compose, and utilizes a Jenkins CI/CD pipeline to automate building, testing, and deploying the service.
@@ -250,4 +262,3 @@ docker-compose up --build
 ```
 
 Visit http://localhost:5000/score to see the score.
-
